@@ -1,9 +1,4 @@
-import java.util.Collection;
-import java.util.Deque;
-import java.util.List;
-import java.util.Stack;
-
-// 추상 클래스
+// 추상 클래스, 추상 메서드
 public class Example05 {
     public static void main(String[] args) {
         // 1. 작업을 위한 데이터 (속성-프로퍼티) + (절차-프로시저) => 인스턴스로 찍어내기 위한 설계도
