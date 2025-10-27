@@ -18,14 +18,18 @@ public class Example02 {
         // ...
         Car c = new Car();
 //        Car ...  static
+        c.run();
         // c -> 인스턴스
         System.out.println(c.name);
         Vehicle v2 = new Car();
-        System.out.println(v2.name);
+        System.out.println(v2.name); // 이전에 상위 클래스의 데이터 => 정적 바인딩
         // 예전 버전이 나온다...
+        v2.run(); // 타입을 상위 타입에다 넣어도 '메서드'는 덮어씌워진 채로 간다...
+        // 상위 타입으로 변경(캐스팅)되어도 덮어씌워진 메서드는 그대로 가는 걸 -> 동적 바인딩.
     }
 }
 
+//final class Vehicle { // 상속할 수 없음
 class Vehicle { // 탈것
     // 인스턴스들이 따로 가져감 (생성자나 대입을 해서, setter를 사용해서 변경하고 호출...)
     String name = "따릉이";
@@ -36,6 +40,11 @@ class Vehicle { // 탈것
         System.out.println(name + "달려달려");
         System.out.println(description);
     }
+
+    final void run2() {
+
+    }
+
     static void describe() {
         // System.out.println(name);
         // static은 멤버변수를 쓸 수 없다 -> 인스턴스가 안만들어졌으니까
@@ -48,4 +57,26 @@ class Car extends Vehicle {
     // 재정의한다 <- 덮어씌워도 상관 X
     String name = "붕붕이"; // 어차피 'super' 키워드로 내부에서 호출가능하기 때문... -> 정의 안내려줬다 (겹치는게 없다면) => 자연스럽게  상위(부모) 클래스의 것을 사용 가능.
     static String description = "이것은 차입니다";
+
+    @Override // 오버라이딩 여부를 체크하는 '어노테이션' / '애너테이션' <- 빌드/컴파일 => 프로그래밍 언어로  작성된 파일을 기계어/엔진이 해석할 수 있는 형태로 변경해주는 것 =>  IDE 에서의 개발이나 혹은 빌드 과정에서 추가적인 변형을 일으켜주는 옵션 전달
+    void run() {
+        System.out.println("부릉부릉");
+    }
+
+//    void run2() { // 상위 메서드에서 final 메서드의 경우 오버라이딩 불가
+//
+//    }
+
+//    @Override // 상속 받은 입장에서 새롭게 만들어진 경우에는 에러 처리
+    void drive() {
+
+    }
+
+    // 오버로딩, 오버라이딩.
+    // Over-loading - 동일한 이름의 메서드가 다른 패러미터 갯수, 타입 구조 (순서)를 가지고 있을 때 패러미터 입력에 따라 여러 메서드를 불러올 수 있는 것을 의미 (타입시스템)
+    // Over-riding - 상속 받은 후에 같은 이름의 메서드를 새로 정의해서 '덮어씌움' => 동적 바인딩
+
+    // 메서드 -> 추상화 => 구현을 안한 상태로 비워둘 수가 있음.
+    // 멤버변수 -> final이 아니면 비워놓을 수가 있고.
+    // 비워져있을 경우엔 => 아예 호출이 안되거나, 경우에 따라 null, 0, "" -> 기본값.
 }
